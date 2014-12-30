@@ -1,0 +1,20 @@
+---
+- hosts: cluster
+  user: root
+  roles:
+  - sethostname
+  - { role: etchosts, hosts_groupname: cluster }
+  - repos
+
+- hosts: masters
+  user: root
+  roles:
+  - { role: zookeeper, zk_group: masters }
+  - mesos-master
+  - chronos
+
+- hosts: workers
+  user: root
+  roles:
+  - mesos-slave
+  - mesos-docker
