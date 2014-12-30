@@ -1,0 +1,14 @@
+[masters]
+<master-first-ip>   zkid=1  setname=master1
+<master-second-ip>  zkid=2  setname=master2
+<master-third-ip>   zkid=3  setname=master3
+
+[workers]
+<worker-first-ip>           setname=worker1
+<worker-second-ip>          setname=worker2
+<worker-third-ip>           setname=worker3
+...
+
+[cluster:children]
+masters
+workers
