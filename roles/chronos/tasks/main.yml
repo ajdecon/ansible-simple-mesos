@@ -1,0 +1,14 @@
+---
+- name: chronos is installed
+  yum:
+    name=chronos
+    state=present
+
+- name: check to see if chronos is running
+  shell: "/sbin/initctl status chronos | grep running"
+  register: chstatus
+  ignore_errors: True
+
+- name: start chronos
+  command: /sbin/initctl start chronos
+  when: chstatus|failed

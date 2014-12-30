@@ -1,0 +1,27 @@
+---
+- name: install docker
+  yum:
+    name=docker-io
+    state=present
+
+- name: docker service is running
+  service:
+    name=docker
+    state=started
+    enabled=yes
+
+- name: configure mesos containerization
+  copy:
+    src=containerizers
+    dest=/etc/mesos-slave/containerizers
+    mode=0444
+  notify:
+    - restart mesos-slave
+
+- name: configure executor timeout
+  copy:
+    src=executor_registration_timeout
+    dest=/etc/mesos-slave/executor_registration_timeout
+    mode=0444
+  notify:
+    - restart mesos-slave
