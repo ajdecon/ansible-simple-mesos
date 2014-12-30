@@ -1,0 +1,18 @@
+---
+- name: copy the cloudera repo file into place
+  copy:
+    src=cloudera-cdh4.repo
+    dest=/etc/yum.repos.d/cloudera-cdh4.repo
+    mode=0444
+
+- name: copy the mesosphere repo rpm to /tmp
+  copy:
+    src=mesosphere-el-repo-6-2.noarch.rpm
+    dest=/tmp/mesosphere-el-repo-6-2.noarch.rpm
+    mode=0400
+
+- name: install the mesosphere repo rpm
+  yum:
+    name=/tmp/mesosphere-el-repo-6-2.noarch.rpm
+    state=present
+
