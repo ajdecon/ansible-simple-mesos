@@ -1,0 +1,14 @@
+zookeeper-server
+================
+
+Role for setting up a simple Zookeeper cluster.
+
+Variables
+---------
+
+* zk_group: Ansible group containing list of server nodes
+  Default value: zookeeper
+* data_dir: Where to store ZooKeeper data
+  Default value: /var/lib/zookeeper
+* client_port: Port for zk clients
+  Default value: 2181

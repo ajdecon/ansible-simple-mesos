@@ -1,0 +1,23 @@
+---
+- name: cloudera gpg key is present in rpmdb
+  rpm_key: state=present key=http://archive.cloudera.com/cdh4/redhat/6/x86_64/cdh/RPM-GPG-KEY-cloudera
+
+- name: cloudera repository is installed
+  copy: src=cloudera-cdh4.repo dest=/etc/yum.repos.d/cloudera-cdh4.repo
+
+- name: zookeeper-server and jre are installed
+  yum: name={{item}} state=present
+  with_items:
+  - java-1.7.0-openjdk
+  - zookeeper-server
+
+- name: zookeeper is configured
+  template: src=zoo.cfg dest=/etc/zookeeper/conf/zoo.cfg
+  notify:
+  - restart zookeeper
+
+- name: zookeeper is initialized
+  command: service zookeeper-server init --myid={{zkid}} creates={{data_dir}}/myid
+
+- name: zookeeper-server is started and enabled
+  service: name=zookeeper-server state=started enabled=yes
