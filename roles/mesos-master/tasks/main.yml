@@ -1,0 +1,48 @@
+---
+- name: install mesos packages
+  yum:
+    name={{ item }}
+    state=present
+  with_items:
+    - mesos
+    - marathon
+
+- name: configure zk
+  template:
+    src=zk
+    dest=/etc/mesos/zk
+    mode=0444
+  notify:
+    - restart mesos-master
+    - restart marathon
+
+- name: configure quorum value
+  template:
+    src=quorum
+    dest=/etc/mesos-master/quorum
+    mode=0444
+  notify:
+    - restart mesos-master
+    - restart marathon
+
+# Mesos and Marathon RPMs have Upstart scripts in /etc/init, not
+# SysV init scripts! :P These don't work well with the Ansible service
+# module.
+
+- name: check if mesos-master is running
+  shell: "/sbin/initctl status mesos-master | grep running"
+  register: mmstatus
+  ignore_errors: True
+
+- name: start mesos-master
+  command: /sbin/initctl start mesos-master
+  when: mmstatus|failed
+
+- name: check if marathon is running
+  shell: "/sbin/initctl status marathon | grep running"
+  register: mastatus
+  ignore_errors: True
+
+- name: start marathon
+  command: /sbin/initctl start marathon
+  when: mastatus|failed

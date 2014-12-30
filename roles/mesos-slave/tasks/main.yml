@@ -1,0 +1,22 @@
+---
+- name: install mesos packages
+  yum:
+    name=mesos
+    state=present
+
+- name: configure zk
+  template:
+    src=zk
+    dest=/etc/mesos/zk
+    mode=0444
+  notify:
+    - restart mesos-slave
+
+- name: check if mesos-slave is running
+  shell: "/sbin/initctl status mesos-slave | grep running"
+  register: msstatus
+  ignore_errors: True
+
+- name: mesos-slave service is started
+  command: /sbin/initctl start mesos-slave
+  when: msstatus|failed

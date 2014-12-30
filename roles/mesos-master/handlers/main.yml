@@ -1,0 +1,6 @@
+---
+- name: restart mesos-master
+  command: /sbin/initctl restart mesos-master
+
+- name: restart marathon
+  command: /sbin/initctl restart marathon
