@@ -1,0 +1,50 @@
+---
+- name: install datanode package
+  yum:
+    name={{ item }}
+    state=present
+  with_items:
+  - java-1.7.0-openjdk
+  - hadoop-hdfs-datanode
+
+- name: storage directory exists
+  file:
+    path={{ hdfs_datanode_dir }}
+    state=directory
+    owner=hdfs
+    group=hdfs
+    mode=0700
+
+- name: configuration directory exists
+  file:
+    path=/etc/hadoop/conf.cluster
+    state=directory
+    owner=hdfs
+    group=hdfs
+    mode=0700
+
+- name: configuration symlink exists
+  file:
+    path=/etc/hadoop/conf
+    src=/etc/hadoop/conf.cluster
+    state=link
+    force=yes
+
+- name: Configure hdfs
+  template:
+    src={{item}}
+    dest=/etc/hadoop/conf.cluster/{{item}}
+    mode=0444
+  with_items:
+  - core-site.xml
+  - hdfs-site.xml
+  - hadoop-policy.xml
+  - log4j.properties
+  notify:
+  - restart datanode
+
+- name: datanode is on and running
+  service:
+    name=hadoop-hdfs-datanode
+    state=started
+    enabled=yes

@@ -1,0 +1,10 @@
+---
+- hosts: namenode
+  user: root
+  roles:
+  - hdfs-namenode
+
+- hosts: datanodes
+  user: root
+  roles:
+  - hdfs-datanode
