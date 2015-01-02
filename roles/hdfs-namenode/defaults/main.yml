@@ -1,2 +1,3 @@
 ---
 hdfs_namenode_dir: /hadoop/namenode
+hdfs_replication: 3

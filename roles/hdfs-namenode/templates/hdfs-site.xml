@@ -26,4 +26,8 @@
       <name>dfs.namenode.name.dir</name>
       <value>file://{{ hdfs_namenode_dir }}/</value>
   </property>
+  <property>
+      <name>dfs.replication</name>
+      <value>{{ hdfs_replication }}</value>
+  </property>
 </configuration>

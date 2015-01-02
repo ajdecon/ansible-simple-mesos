@@ -1,4 +1,5 @@
 ---
 namenode_group: 'namenode'
 hdfs_datanode_dir: '/hadoop/data'
+hdfs_replication: 3
 

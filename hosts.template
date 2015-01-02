@@ -12,3 +12,13 @@
 [cluster:children]
 masters
 workers
+
+[namenode]
+<namenode-ip>
+
+[datanodes:children]
+workers
+
+[hdfs:children]
+namenode
+datanodes
