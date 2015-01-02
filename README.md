@@ -17,8 +17,9 @@ Currently this playbook will set up
 [Zookeeper](https://zookeeper.apache.org/) and Mesos with 
 [Marathon](https://github.com/mesosphere/marathon) and
 [Chronos](https://github.com/airbnb/chronos) as installed frameworks, and
-[Docker](https://www.docker.com/) installed on the worker nodes. At some point
-I hope to add [Hadoop](https://github.com/mesos/hadoop),
+[Docker](https://www.docker.com/) installed on the worker nodes. An HDFS
+filesystem is also set up. At some point
+I hope to add [Hadoop MapReduce](https://github.com/mesos/hadoop),
 [Spark](https://github.com/mesos/spark), and
 [Torque](https://mesos.apache.org/documentation/running-torque-or-mpi-on-mesos/).
 
