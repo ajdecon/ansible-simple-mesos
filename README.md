@@ -23,6 +23,9 @@ I hope to add [Hadoop MapReduce](https://github.com/mesos/hadoop),
 [Spark](https://github.com/mesos/spark), and
 [Torque](https://mesos.apache.org/documentation/running-torque-or-mpi-on-mesos/).
 
+The playbook also sets up an [ELK Stack](https://www.elastic.co/downloads) log server
+and configures all hosts to forward their syslog there.
+
 I tested it on a simple [Amazon EC2](http://aws.amazon.com/) cluster consisting
 of six m1.small instances running a [RightScale](http://www.rightscale.com/) 
 CentOS 6.5 image (ami-1c5dd974). I set it up with three masters (for HA) and three
@@ -44,3 +47,13 @@ To use:
    for each host.
 
 5. Run `ansible-playbook -i hosts cluster.yml`
+
+
+Default ports
+-------------
+
+- Kibana web interface: port 5601
+- ElasticSearch API : port 9200
+- Mesos web interface: port 5050
+- Chronos web interface: port 4400
+- Marathon web inteface: port 8080
