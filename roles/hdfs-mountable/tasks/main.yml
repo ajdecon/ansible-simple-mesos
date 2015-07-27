@@ -1,0 +1,23 @@
+---
+- name: hadoop-hdfs-fuse is installed
+  yum: name=hadoop-hdfs-fuse state=present
+
+- name: add jvm lib path to ldconfig
+  copy:
+    src="hdfs_jvm_libs.conf"
+    dest="/etc/ld.so.conf.d/hdfs_jvm_libs.conf"
+    owner=root
+    group=root
+    mode=0444
+
+- name: run ldconfig
+  command: /sbin/ldconfig
+
+- name: ensure hdfs is mounted
+  mount:
+    name="{{ hdfs_mountpoint }}"
+    src="hadoop-fuse-dfs#dfs://{{ hostvars[ groups['namenode'][0] ]['ansible_hostname'] }}:8020"
+    fstype="fuse"
+    opts="rw"
+    state="mounted"
+
