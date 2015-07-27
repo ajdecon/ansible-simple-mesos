@@ -9,7 +9,7 @@
   roles:
   - hdfs-datanode
 
-- hosts: hdfs
+- hosts: cluster 
   user: root
   roles:
   - hdfs-mountable
