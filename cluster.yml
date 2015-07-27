@@ -1,3 +1,4 @@
 ---
 - include: 'mesos.yml'
 - include: 'hdfs.yml'
+- include: 'logging.yml'

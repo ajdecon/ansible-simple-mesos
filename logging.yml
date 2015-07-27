@@ -1,0 +1,13 @@
+---
+- hosts: logserver
+  user: root
+  roles:
+  - "elk-log-server"
+
+- hosts: cluster
+  user: root
+  roles:
+  - role: "rsyslog-forwarder"
+    syslog_target: "{{ hostvars[ groups['logserver'][0] ]['ansible_hostname'] }}"
+    syslog_target_port: 5200
+    syslog_fwd_file: "elk-fwd.conf"
