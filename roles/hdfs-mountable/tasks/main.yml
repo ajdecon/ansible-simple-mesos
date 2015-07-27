@@ -1,6 +1,9 @@
 ---
 - name: hadoop-hdfs-fuse is installed
-  yum: name=hadoop-hdfs-fuse state=present
+  yum: name="{{ item }}" state=present
+  with_items:
+  - java-1.7.0-openjdk
+  - hadoop-hdfs-fuse
 
 - name: add jvm lib path to ldconfig
   copy:
