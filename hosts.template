@@ -1,3 +1,13 @@
+# This is an example inventory file for using the playbooks in this repo.
+# Note that I'm using a role called "sethostname" to change the hostname
+# of each host, according to the per-host value "setname" defined below.
+# An "etchosts" role then sets up /etc/hosts according to the system
+# hostnames.
+#
+# Note that while I have separate IPs listed below for the HDFS NameNode
+# and the log server, I usually host each of those on one of the
+# cluster master nodes.
+
 [masters]
 <master-first-ip>   zkid=1  setname=master1
 <master-second-ip>  zkid=2  setname=master2
@@ -15,6 +25,9 @@ workers
 
 [namenode]
 <namenode-ip>
+
+[logserver]
+<logserver-ip>
 
 [datanodes:children]
 workers
