@@ -1,0 +1,26 @@
+---
+- hosts: cluster 
+  user: root
+  tasks:
+  - action: setup 
+
+- name: set up nfs server
+  hosts: nfsserver
+  user: root
+  vars:
+    nfs_allowed_groups:
+    - "cluster"
+  roles:
+  - "nfs-server"
+
+- name: set up nfs clients
+  hosts: workers
+  user: root
+  vars:
+    nfs_mounts:
+      - path: "/home"
+        mountpoint: "/home"
+        server: "{{ hostvars[ groups['nfsserver'][0] ]['ansible_hostname'] }}"
+        options: "defaults,vers=3"
+  roles:
+  - "nfs-client"

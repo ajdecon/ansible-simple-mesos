@@ -2,3 +2,4 @@
 - include: 'mesos.yml'
 - include: 'hdfs.yml'
 - include: 'logging.yml'
+- include: 'nfs.yml'

@@ -26,12 +26,15 @@ workers
 [namenode]
 <namenode-ip>
 
-[logserver]
-<logserver-ip>
-
 [datanodes:children]
 workers
 
 [hdfs:children]
 namenode
 datanodes
+
+[logserver]
+<logserver-ip>
+
+[nfsserver]
+<nfs-server-ip>
